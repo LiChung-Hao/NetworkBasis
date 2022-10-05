@@ -40,21 +40,22 @@ int main()
 		if (_kbhit())
 		{
 			getline(cin, sendString); //need to include string
-			if (sendString != "q")
+		}
+		if (sendString != "q" && sendString[0] != '\0')
+		{
+			cout << "Sent message: " << sendString << endl;
+			NetworkManager::GetInstance()->SendDataUDP(sendString.c_str()); //char by char
+
+			char* recString = new char[NetworkManager::GetInstance()->MAX_MSG_SIZE];
+			recString[0] = '\0';
+
+			int size = NetworkManager::GetInstance()->ReceiveDataUDP(recString);
+
+			if (size > 0)
 			{
-				cout << "Sent message: " << sendString << endl;
-				NetworkManager::GetInstance()->SendDataUDP(sendString.c_str()); //char by char
-
-				char* recString = new char[NetworkManager::GetInstance()->MAX_MSG_SIZE];
-				recString[0] = '\0';
-
-				int size = NetworkManager::GetInstance()->ReceiveDataUDP(recString);
-
-				if (size > 0)
-				{
-					cout << "Received message: " << recString << endl;
-				}
+				cout << "Received message: " << recString << endl;
 			}
+			sendString[0] = '\0';
 		}
 
 	}

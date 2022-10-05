@@ -66,17 +66,20 @@ void NetworkManager::BindUDP()
 
 void NetworkManager::SetRemoteData()
 {
-	//string receiverIP = "";
-	//string receiverPORT = "";
-	//cout << "Please enter your receipcient's IP: " << endl;
-	//cin >> receiverIP;
-	//cout << "Please enter your receipcient's PORT: " << endl;
-	//cin >> receiverPORT;
+	string receiverIP = "";
+	int receiverPORT;
+	cout << "Please enter your receipcient's IP: " << endl;
+	cin >> receiverIP;
+	cout << "Please enter your receipcient's PORT: " << endl;
+	cin >> receiverPORT;
+
 	UDPOutAddr.sin_family = AF_INET;
-	//UDPOutAddr.sin_port = htons((int)receiverPORT.c_str());
-	UDPOutAddr.sin_port = htons(8889);
-	//inet_pton(AF_INET, receiverIP.c_str(), &UDPOutAddr.sin_addr.s_addr);
-	inet_pton(AF_INET, "127.0.0.1", &UDPOutAddr.sin_addr.s_addr);
+	UDPOutAddr.sin_port = htons((u_short)receiverPORT);
+	cout << (u_short)receiverPORT << endl;
+	//UDPOutAddr.sin_port = htons(8889);
+	inet_pton(AF_INET, receiverIP.c_str(), &UDPOutAddr.sin_addr.s_addr);
+	cout << receiverIP.c_str() << endl;
+	//inet_pton(AF_INET, "127.0.0.1", &UDPOutAddr.sin_addr.s_addr);
 	
 }
 
