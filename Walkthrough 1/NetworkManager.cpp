@@ -52,9 +52,12 @@ void NetworkManager::ShutDown()
 
 void NetworkManager::BindUDP()
 {
+	int portToReceive;
+	cout << "Please enter port to receive: " << endl;
+	cin >> portToReceive;
 	//using IPV4
 	UDPInAddr.sin_family = AF_INET;
-	UDPInAddr.sin_port = htons(8889);
+	UDPInAddr.sin_port = htons(portToReceive);
 	UDPInAddr.sin_addr.s_addr = htonl(INADDR_ANY);
 
 	int bindError = bind(UDPSocketIn, reinterpret_cast<SOCKADDR*>(&UDPInAddr),sizeof(UDPInAddr));
